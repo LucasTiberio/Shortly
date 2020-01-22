@@ -77,21 +77,19 @@ const Form = () => {
     }
 
     const handleClickNewLink = async () => {
-        //todo check input has value
         if(link === '') {
             setError('Please add a link');
             return;
         }
+
         let response = await ShortenerService.createLink(link);
-        
         if(response.ans === true) {
-            //success
+            //todo add in redux
             console.log(response.data)
             return;
         }else{
             setError('Insert a valid link')
             return;
-            //error
         }
     }
 

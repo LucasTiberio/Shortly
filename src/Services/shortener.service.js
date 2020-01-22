@@ -16,6 +16,19 @@ export const createLink = async originLink => {
     return response
 }
 
-export const getOrigin = (linkId, callbackSuccess, callbackError) => {
-    axios.get('https://rel.ink/api/links/' + linkId).then(res => callbackSuccess()).catch(err => callbackError(err));
+//kXaBrn
+export const getOrigin = async linkId => {
+    let response = { ans: false }
+    await axios.get('https://rel.ink/api/links/' + linkId).then( res => {
+        response = {
+            ans: true,
+            ...res
+        };
+    }).catch(err => {
+        response = {
+            ans: false,
+            ...err
+        }
+    })
+    return response;
 }
