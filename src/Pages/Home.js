@@ -9,10 +9,6 @@ import Footer from '../Components/Footer'
 
 class Home extends Component {
 
-    handleNewLink = () => {
-
-    }
-
     render() {
         return (
             <>
