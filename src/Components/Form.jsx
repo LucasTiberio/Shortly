@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import * as ShortenerService from '../Services/shortener.service.js'
 import Button from './Button'
 
 import BackgroundDesktop from '../assets/bg-shorten-desktop.svg'
@@ -39,11 +40,13 @@ const Content = styled.div`
 `;
 
 const Input = styled.input`
+    position: relative;
     outline: 0;
     margin: 0;
     border: 0;
     padding: 2vh 2vw;
     border-radius: 6px;
+    border: ${props => props.error ? '1px solid red' : '1px solid white'};
         
     font-size: 1.1rem;
     font-weight: 700;
@@ -54,12 +57,50 @@ const Input = styled.input`
     }
 `;
 
+const ErrorLabel = styled.span`
+    position: absolute;
+    top: 13%;
+    left: 5%;
+    
+    z-index: 1;
+    
+    color: red;
+    font-style: italic;
+`;
+
 const Form = () => {
+    const [error, setError] = useState('');
+    const [link, setLink] = useState('');
+
+    const handleInputChangeLink = e => {
+        setLink(e.target.value)
+    }
+
+    const handleClickNewLink = async () => {
+        //todo check input has value
+        if(link === '') {
+            setError('Please add a link');
+            return;
+        }
+        let response = await ShortenerService.createLink(link);
+        
+        if(response.ans === true) {
+            //success
+            console.log(response.data)
+            return;
+        }else{
+            setError('Insert a valid link')
+            return;
+            //error
+        }
+    }
+
     return (
         <Container>
             <Content>
-                <Input placeholder='Shorten a link here...' />
-                <Button light>Shorten It!</Button>
+                <Input error={error !== ''} onChange={handleInputChangeLink} placeholder='Shorten a link here...' />
+                {error && <ErrorLabel> {error} </ErrorLabel>}
+                <Button light onClick={handleClickNewLink}>Shorten It!</Button>
                 <img className='AbsoluteBackground' src={BackgroundDesktop} alt='Background for Shorten' />
             </Content>
         </Container>

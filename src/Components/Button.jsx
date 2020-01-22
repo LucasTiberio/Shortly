@@ -22,8 +22,8 @@ const Btn = styled.button`
     }
 `;
 
-const Button = ({padding, children, rounded, light, fontSize}) => {
-    return <Btn padding={padding} fontSize={fontSize} rounded={rounded} light={light}>{children}</Btn>
+const Button = ({onClick, padding, children, rounded, light, fontSize}) => {
+    return <Btn onClick={onClick} padding={padding} fontSize={fontSize} rounded={rounded} light={light}>{children}</Btn>
 }
 
 export default Button;
