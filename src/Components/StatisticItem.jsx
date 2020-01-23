@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const isResponsive = window.innerWidth < 800;
+
 const Container = styled.div`
     position: relative;
     margin-top: 15vh;
@@ -13,7 +15,8 @@ const Container = styled.div`
 const Icon = styled.div`
     position: absolute;
     top: -16%;
-    left: 10%;
+    left: ${isResponsive ? '50%' : '10%'};
+    transform: ${isResponsive && 'translateX(-50%)'};
 
     padding: 6%;
     border-radius: 100%;

@@ -7,16 +7,20 @@ import Button from './Button'
 import { addLink } from '../Redux/actions/LinkAction'
 
 import BackgroundDesktop from '../assets/bg-shorten-desktop.svg'
+import BackgroundMobile from '../assets/bg-shorten-mobile.svg'
 
 const Container = styled.div`
     background: ${props => props.theme.GrayishViolet};
     background: ${props => "linear-gradient(180deg, white 50%, "+props.theme.LightGray+" 50%)"};
     padding: 2vh 10vw;
+    z-index: -2;
 `;
+
+const isResponsive = window.innerWidth < 800;
 
 const Content = styled.div`
     position: relative;
-    display: grid;
+    display: ${isResponsive ? 'block' : 'grid'};
     grid-template-columns: 1fr 15%;
     
     padding: 8vh 3vw;
@@ -27,8 +31,14 @@ const Content = styled.div`
     background-color: ${props => props.theme.DarkViolet};
 
     input, button {
-        margin: 0 1vw;
-        z-index: 1;
+        position: relative;
+        margin: ${!isResponsive && '0 1vw'};
+        width: ${isResponsive && '100%'};
+        z-index: 2;
+    }
+
+    button {
+        margin-top: ${isResponsive && '2vh'};
     }
 
     .AbsoluteBackground {
@@ -36,8 +46,9 @@ const Content = styled.div`
         left: 0;
         top: 0;
         width: 100%;
+        height: ${isResponsive && '100%'};
         pointer-events: none;
-        z-index: 0;
+        z-index: -1;
     }
 `;
 
@@ -50,7 +61,7 @@ const Input = styled.input`
     border-radius: 6px;
     border: ${props => props.error ? '1px solid red' : '1px solid white'};
         
-    font-size: 1.1rem;
+    font-size: ${isResponsive ? '0.95rem' : '1.1rem'};
     font-weight: 700;
     color: ${props => props.theme.LightBlack};
 
@@ -99,10 +110,10 @@ const Form = () => {
     return (
         <Container>
             <Content>
+                <img className='AbsoluteBackground' src={isResponsive ? BackgroundMobile : BackgroundDesktop} alt='Background for Shorten' />
                 <Input error={error !== ''} onChange={handleInputChangeLink} placeholder='Shorten a link here...' />
                 {error && <ErrorLabel> {error} </ErrorLabel>}
                 <Button light onClick={handleClickNewLink}>Shorten It!</Button>
-                <img className='AbsoluteBackground' src={BackgroundDesktop} alt='Background for Shorten' />
             </Content>
         </Container>
     )

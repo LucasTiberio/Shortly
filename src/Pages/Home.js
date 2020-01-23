@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Header from '../Components/Header'
+import Header from '../Components/Header/index'
 import GetStarted from '../Components/GetStarted'
 import Form from '../Components/Form'
 import LinkList from '../Components/LinkList'

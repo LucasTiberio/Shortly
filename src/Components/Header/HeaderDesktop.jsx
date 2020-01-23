@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Button from './Button'
-
 const Container = styled.div`
     display: flex;
     align-items: center;
@@ -17,32 +15,22 @@ const Side = styled.div`
     justify-content: center;
 `;
 
-const Title = styled.span`
-    font-size: 2rem;
-    font-weight: 700;
-    margin-right: 1.5vw;
-    color: ${props => props.theme.LightBlack || 'black'};
-`;
-
 const ButtonList = styled.div`
     display: inline-block;
 `;
 
-const Header = () => {
+const Header = ({data}) => {
     return (
         <Container>
             <Side>
-                <Title>Shortly</Title>
+                {data.title}
                 <ButtonList>
-                    <Button>Features</Button>
-                    <Button>Pricing</Button>
-                    <Button>Resources</Button>
+                    {data.buttons.out}
                 </ButtonList>
             </Side>
             <Side>
                 <ButtonList>
-                    <Button>Login</Button>
-                    <Button rounded light>Sign Up</Button>
+                    {data.buttons.in}
                 </ButtonList>
             </Side>
         </Container>

@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Button from './Button'
 import BoostBackground from '../assets/bg-boost-desktop.svg'
 
+const isResponsive = window.innerWidth < 800;
+
 const Container = styled.div`
     position: relative;
     text-align: center;
@@ -30,7 +32,7 @@ const Container = styled.div`
         color: whitesmoke;
         
         font-weight: bold;
-        font-size: 2.7rem;
+        font-size: ${isResponsive ? '1.8rem' : '2.7rem'};
         margin-bottom: 2vh;
     }
     
@@ -43,7 +45,7 @@ const BoostToday = () => {
     return (
         <Container>
             <span className="title">Boost your links today</span>
-            <Button rounded light padding='1.6vh 2.5vw'>Get Starded</Button>
+            <Button rounded light padding={isResponsive ? '2vh 5vw' : '1.6vh 2.5vw' }>Get Starded</Button>
             <img className='AbsoluteBackground' src={BoostBackground} alt={'Fundo Boost'} />
         </Container>
     )
