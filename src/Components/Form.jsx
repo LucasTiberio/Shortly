@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components';
 
 import * as ShortenerService from '../Services/shortener.service.js'
 import Button from './Button'
+import { addLink } from '../Redux/actions/LinkAction'
 
 import BackgroundDesktop from '../assets/bg-shorten-desktop.svg'
 
@@ -71,6 +73,7 @@ const ErrorLabel = styled.span`
 const Form = () => {
     const [error, setError] = useState('');
     const [link, setLink] = useState('');
+    const dispatch = useDispatch();
 
     const handleInputChangeLink = e => {
         setLink(e.target.value)
@@ -84,8 +87,8 @@ const Form = () => {
 
         let response = await ShortenerService.createLink(link);
         if(response.ans === true) {
-            //todo add in redux
-            console.log(response.data)
+            dispatch(addLink(response.data))
+            setLink('');
             return;
         }else{
             setError('Insert a valid link')

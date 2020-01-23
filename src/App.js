@@ -1,7 +1,9 @@
 import React from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { Provider } from 'react-redux';
 
 import Home from './Pages/Home'
+import store from './Redux'
 
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
@@ -28,10 +30,12 @@ const Theme = {
 
 function App() {
   return (
-    <ThemeProvider theme={Theme}>
-      <GlobalStyle />
-      <Home />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={Theme}>
+        <GlobalStyle />
+        <Home />
+      </ThemeProvider>
+    </Provider>
   );
 }
 

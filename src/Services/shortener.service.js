@@ -5,12 +5,12 @@ export const createLink = async originLink => {
     await axios.post('https://rel.ink/api/links/', { url: originLink }).then((res) => {
         response = {
             ans: true,
-            data: res
+            ...res
         };
     }).catch((err) => {
         response = {
             ans: false,
-            data: err
+            ...err
         };
     });
     return response
