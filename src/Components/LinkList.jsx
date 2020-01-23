@@ -15,7 +15,7 @@ const LinkList = () => {
     return (
         <Container>
             {links.map(data => (
-                <LinkItem data={data} />
+                <LinkItem key={data.hashid} data={data} />
             ))}
         </Container>
     )

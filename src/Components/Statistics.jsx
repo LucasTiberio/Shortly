@@ -61,7 +61,7 @@ const Statistics = () => {
             </Info>
             <Items>
                 <Row>
-                    {StatsItems.map( item => <Col sm="12" md="4"> <StatisticItem icon={item.icon} key={item.title} title={item.title} description={item.description} /> </Col> )}
+                    {StatsItems.map( item => <Col sm="12" md="4" key={item.title}> <StatisticItem icon={item.icon} title={item.title} description={item.description} /> </Col> )}
                 </Row>
             </Items>
         </Container>
