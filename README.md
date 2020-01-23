@@ -8,6 +8,8 @@ Projeto feito de acordo com o 'URL shortening API landing page' criado pelo Fron
     - Styled-Components
     - Bootstrap + Reactstrap
     - Axios
+    - Redux
+    - React-Redux
 
 ## Scripts
 
