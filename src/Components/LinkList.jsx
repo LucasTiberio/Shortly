@@ -1,24 +1,24 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useSelector } from 'react-redux'
+import React from "react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
 
-import LinkItem from './LinkItem'
+import LinkItem from "./LinkItem";
 
 const Container = styled.div`
-    background: ${props => props.theme.LightGray};
-    padding: 0 10vw;
+	background: ${props => props.theme.LightGray};
+	padding: 0 10vw;
 `;
 
 const LinkList = () => {
-    const links = useSelector(state => state.linklist)
+	const links = useSelector(state => state.linklist);
 
-    return (
-        <Container>
-            {links.map(data => (
-                <LinkItem key={data.hashid} data={data} />
-            ))}
-        </Container>
-    )
+	return (
+		<Container>
+			{links.map(data => (
+				<LinkItem key={data.hashid} data={data} />
+			))}
+		</Container>
+	);
 };
 
 export default LinkList;

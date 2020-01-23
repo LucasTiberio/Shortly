@@ -1,122 +1,136 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux'
-import styled from 'styled-components';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
-import * as ShortenerService from '../Services/shortener.service.js'
-import Button from './Button'
-import { addLink } from '../Redux/actions/LinkAction'
+import * as ShortenerService from "../Services/shortener.service.js";
+import Button from "./Button";
+import { addLink } from "../Redux/actions/LinkAction";
 
-import BackgroundDesktop from '../assets/bg-shorten-desktop.svg'
-import BackgroundMobile from '../assets/bg-shorten-mobile.svg'
+import BackgroundDesktop from "../assets/bg-shorten-desktop.svg";
+import BackgroundMobile from "../assets/bg-shorten-mobile.svg";
 
 const Container = styled.div`
-    background: ${props => props.theme.GrayishViolet};
-    background: ${props => "linear-gradient(180deg, white 50%, "+props.theme.LightGray+" 50%)"};
-    padding: 2vh 10vw;
-    z-index: -2;
+	background: ${props => props.theme.GrayishViolet};
+	background: ${props =>
+		"linear-gradient(180deg, white 50%, " +
+		props.theme.LightGray +
+		" 50%)"};
+	padding: 2vh 10vw;
+	z-index: -2;
 `;
 
 const isResponsive = window.innerWidth < 800;
 
 const Content = styled.div`
-    position: relative;
-    display: ${isResponsive ? 'block' : 'grid'};
-    grid-template-columns: 1fr 15%;
-    
-    padding: 8vh 3vw;
-    border-radius: 10px;
-    
-    overflow: hidden;
+	position: relative;
+	display: ${isResponsive ? "block" : "grid"};
+	grid-template-columns: 1fr 15%;
 
-    background-color: ${props => props.theme.DarkViolet};
+	padding: 8vh 3vw;
+	border-radius: 10px;
 
-    input, button {
-        position: relative;
-        margin: ${!isResponsive && '0 1vw'};
-        width: ${isResponsive && '100%'};
-        z-index: 2;
-    }
+	overflow: hidden;
 
-    button {
-        margin-top: ${isResponsive && '2vh'};
-    }
+	background-color: ${props => props.theme.DarkViolet};
 
-    .AbsoluteBackground {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: ${isResponsive && '100%'};
-        pointer-events: none;
-        z-index: -1;
-    }
+	input,
+	button {
+		position: relative;
+		margin: ${!isResponsive && "0 1vw"};
+		width: ${isResponsive && "100%"};
+		z-index: 2;
+	}
+
+	button {
+		margin-top: ${isResponsive && "2vh"};
+	}
+
+	.AbsoluteBackground {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: ${isResponsive && "100%"};
+		pointer-events: none;
+		z-index: -1;
+	}
 `;
 
 const Input = styled.input`
-    position: relative;
-    outline: 0;
-    margin: 0;
-    border: 0;
-    padding: 2vh 2vw;
-    border-radius: 6px;
-    border: ${props => props.error ? '1px solid red' : '1px solid white'};
-        
-    font-size: ${isResponsive ? '0.95rem' : '1.1rem'};
-    font-weight: 700;
-    color: ${props => props.theme.LightBlack};
+	position: relative;
+	outline: 0;
+	margin: 0;
+	border: 0;
+	padding: 2vh 2vw;
+	border-radius: 6px;
+	border: ${props => (props.error ? "1px solid red" : "1px solid white")};
 
-    ::placeholder {
-        color: ${props => props.theme.Gray};
-    }
+	font-size: ${isResponsive ? "0.95rem" : "1.1rem"};
+	font-weight: 700;
+	color: ${props => props.theme.LightBlack};
+
+	::placeholder {
+		color: ${props => props.theme.Gray};
+	}
 `;
 
 const ErrorLabel = styled.span`
-    position: absolute;
-    top: 13%;
-    left: 5%;
-    
-    z-index: 1;
-    
-    color: red;
-    font-style: italic;
+	position: absolute;
+	top: 13%;
+	left: 5%;
+
+	z-index: 1;
+
+	color: red;
+	font-style: italic;
 `;
 
 const Form = () => {
-    const [error, setError] = useState('');
-    const [link, setLink] = useState('');
-    const dispatch = useDispatch();
+	const [error, setError] = useState("");
+	const [link, setLink] = useState("");
+	const dispatch = useDispatch();
 
-    const handleInputChangeLink = e => {
-        setLink(e.target.value)
-    }
+	const handleInputChangeLink = e => {
+		setLink(e.target.value);
+	};
 
-    const handleClickNewLink = async () => {
-        if(link === '') {
-            setError('Please add a link');
-            return;
-        }
+	const handleClickNewLink = async () => {
+		if (link === "") {
+			setError("Please add a link");
+			return;
+		}
 
-        let response = await ShortenerService.createLink(link);
-        if(response.ans === true) {
-            dispatch(addLink(response.data))
-            setLink('');
-            return;
-        }else{
-            setError('Insert a valid link')
-            return;
-        }
-    }
+		let response = await ShortenerService.createLink(link);
+		if (response.ans === true) {
+			dispatch(addLink(response.data));
+			setLink("");
+			return;
+		} else {
+			setError("Insert a valid link");
+			return;
+		}
+	};
 
-    return (
-        <Container>
-            <Content>
-                <img className='AbsoluteBackground' src={isResponsive ? BackgroundMobile : BackgroundDesktop} alt='Background for Shorten' />
-                <Input error={error !== ''} onChange={handleInputChangeLink} placeholder='Shorten a link here...' />
-                {error && <ErrorLabel> {error} </ErrorLabel>}
-                <Button light onClick={handleClickNewLink}>Shorten It!</Button>
-            </Content>
-        </Container>
-    )
-}
+	return (
+		<Container>
+			<Content>
+				<img
+					className="AbsoluteBackground"
+					src={isResponsive ? BackgroundMobile : BackgroundDesktop}
+					alt="Background for Shorten"
+				/>
+				<Input
+					error={error !== ""}
+					onChange={handleInputChangeLink}
+					placeholder="Shorten a link here..."
+				/>
+				{error && <ErrorLabel> {error} </ErrorLabel>}
+				<Button light onClick={handleClickNewLink}>
+					Shorten It!
+				</Button>
+			</Content>
+		</Container>
+	);
+};
 
 export default Form;

@@ -1,6 +1,6 @@
 export const addLink = data => {
-    return {
-        type: 'LINK_ADD',
-        payload: data
-    }
+	return {
+		type: "LINK_ADD",
+		payload: data
+	};
 };
