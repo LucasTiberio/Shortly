@@ -94,6 +94,39 @@ const Form = () => {
 		setLink(e.target.value);
 	};
 
+	const containsObjInArray = (obj, list) => {
+		var i;
+		for (i = 0; i < list.length; i++) {
+			if (list[i] === obj) {
+				return true;
+			}
+		}
+		return false;
+	};
+
+	const existsInStorage = data => {
+		let storage = localStorage.getItem("addedLinks");
+		if (storage === null) {
+			return false;
+		}
+		let parsedStorage = JSON.parse(storage);
+		return (
+			parsedStorage.filter(item => item.hashid === data.hashid).length > 0
+		);
+	};
+
+	const setInStorage = data => {
+		let storage = localStorage.getItem("addedLinks");
+		if (storage === null) {
+			localStorage.setItem("addedLinks", JSON.stringify([data]));
+		} else {
+			let newData = JSON.parse(storage);
+
+			newData.push(data);
+			localStorage.setItem("addedLinks", JSON.stringify(newData));
+		}
+	};
+
 	const handleClickNewLink = async () => {
 		if (link === "") {
 			setError("Please add a link");
@@ -102,8 +135,14 @@ const Form = () => {
 
 		let response = await ShortenerService.createLink(link);
 		if (response.ans === true) {
-			dispatch(addLink(response.data));
-			setLink("");
+			console.log(existsInStorage(response.data));
+			if (!existsInStorage(response.data)) {
+				dispatch(addLink(response.data));
+				setInStorage(response.data);
+				setLink("");
+			} else {
+				setError("Você já adicionou este link!");
+			}
 			return;
 		} else {
 			setError("Insert a valid link");
@@ -120,6 +159,7 @@ const Form = () => {
 					alt="Background for Shorten"
 				/>
 				<Input
+					value={link}
 					error={error !== ""}
 					onChange={handleInputChangeLink}
 					placeholder="Shorten a link here..."
