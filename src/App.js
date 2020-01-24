@@ -5,10 +5,7 @@ import { Provider } from "react-redux";
 import Home from "./Pages/Home";
 import store from "./Redux";
 
-import "../node_modules/bootstrap/dist/css/bootstrap.css";
-
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Poppins:500,700&display=swap');
   * {
     padding: 0;
     margin: 0;

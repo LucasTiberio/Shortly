@@ -125,7 +125,6 @@ const Form = () => {
 
 		let response = await ShortenerService.createLink(link);
 		if (response.ans === true) {
-			console.log(existsInStorage(response.data));
 			if (!existsInStorage(response.data)) {
 				dispatch(addLink(response.data));
 				setInStorage(response.data);

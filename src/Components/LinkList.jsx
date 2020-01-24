@@ -21,7 +21,6 @@ const LinkList = () => {
 			const storage = localStorage.getItem("addedLinks");
 			if (storage !== null) {
 				let parsedStorage = JSON.parse(storage);
-				console.warn(parsedStorage);
 				parsedStorage.map(item => dispatch(addLink(item)));
 			}
 			setInitiated(true);
