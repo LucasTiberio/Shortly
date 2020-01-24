@@ -94,16 +94,6 @@ const Form = () => {
 		setLink(e.target.value);
 	};
 
-	const containsObjInArray = (obj, list) => {
-		var i;
-		for (i = 0; i < list.length; i++) {
-			if (list[i] === obj) {
-				return true;
-			}
-		}
-		return false;
-	};
-
 	const existsInStorage = data => {
 		let storage = localStorage.getItem("addedLinks");
 		if (storage === null) {
